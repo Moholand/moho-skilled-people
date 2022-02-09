@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\User;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use App\Http\Resources\User\UserResource;
+use App\Http\Requests\User\UserCreateRequest;
+use App\Http\Requests\User\UserUpdateRequest;
 
 class UserController extends Controller
 {
@@ -14,7 +18,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        return UserResource::collection(User::all());
     }
 
     /**
@@ -23,9 +27,14 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserCreateRequest $request)
     {
-        //
+        $user = User::create( $request->only(['full_name', 'email', 'password', 'country_id']) );
+        
+        return response()->json([
+            'user' => new UserResource($user),
+            'message' => 'User created successfully'
+        ]);
     }
 
     /**
@@ -34,9 +43,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $user)
     {
-        //
+        return new UserResource($user);
     }
 
     /**
@@ -46,9 +55,19 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UserUpdateRequest $request, User $user)
     {
-        //
+        $user->update([
+            'full_name' => $request->full_name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'country_id' => $request->country_id,
+        ]);
+
+        return response()->json([
+            'user' => new UserResource($user),
+            'message' => 'User updated successfully'
+        ]);
     }
 
     /**
@@ -59,6 +78,14 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::withTrashed()->findOrFail($id);
+
+        if($user->trashed()) {
+            $user->forceDelete();
+            return response()->json(['message' => 'User deleted successfully']);
+        } else {
+            $user->delete();
+            return response()->json(['message' => 'User moved to trashed successfully']);
+        } 
     }
 }
