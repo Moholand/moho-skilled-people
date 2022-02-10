@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\User;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class UserRestoreController extends Controller
@@ -17,7 +16,6 @@ class UserRestoreController extends Controller
     public function __invoke($id)
     {
         User::onlyTrashed()->findOrFail($id)->restore();
-
         return response()->json(['message' => 'User restored successfully']);
     }
 }
