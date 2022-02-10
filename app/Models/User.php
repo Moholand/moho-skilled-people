@@ -66,7 +66,7 @@ class User extends Authenticatable implements JWTSubject
 
     public function country()
     {
-        return $this->belongTo(Country::class);
+        return $this->belongsTo(Country::class);
     }
 
     public function skills()

@@ -23,6 +23,8 @@ class CreateUsersTable extends Migration
             // $table->rememberToken();
             $table->softDeletes();
             $table->timestamps();
+
+            $table->foreign('country_id')->references('id')->on('countries');
         });
     }
 
