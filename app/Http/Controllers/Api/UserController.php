@@ -18,7 +18,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        return UserResource::collection(User::with(['country', 'skills'])->paginate(20)->withQueryString());
+        return UserResource::collection(
+            User::with(['country', 'skills'])->paginate(20)->withQueryString()
+        );
     }
 
     /**
