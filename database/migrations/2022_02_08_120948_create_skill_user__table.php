@@ -18,7 +18,6 @@ class CreateSkillUserTable extends Migration
             $table->unsignedBigInteger('skill_id');
             $table->unsignedBigInteger('user_id');
             $table->enum('level', ['basic', 'intermediate', 'advance'])->default('basic');
-            $table->timestamps();
         });
     }
 
