@@ -18,7 +18,7 @@ class CreateUsersTable extends Migration
             $table->string('full_name');
             $table->string('email')->unique();
             $table->string('password');
-            $table->unsignedBigInteger('country_id');
+            $table->BigInteger('country_id')->unsigned();
             $table->softDeletes();
             $table->timestamps();
 
