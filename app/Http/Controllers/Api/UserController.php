@@ -32,12 +32,13 @@ class UserController extends Controller
     public function store(UserCreateRequest $request)
     {
         $user = User::create([
-            'full_name' => $request->full_name,
+            'english_full_name' => $request->english_full_name,
+            'persian_full_name' => $request->persian_full_name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'country_id' => $request->country_id
         ]);
-        
+
         return response()->json([
             'user' => new UserResource($user),
             'message' => 'User created successfully'
@@ -65,7 +66,8 @@ class UserController extends Controller
     public function update(UserUpdateRequest $request, User $user)
     {
         $user->update([
-            'full_name' => $request->full_name,
+            'english_full_name' => $request->english_full_name,
+            'persian_full_name' => $request->persian_full_name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'country_id' => $request->country_id,
@@ -93,6 +95,6 @@ class UserController extends Controller
         } else {
             $user->delete();
             return response()->json(['message' => 'User moved to trashed successfully']);
-        } 
+        }
     }
 }
