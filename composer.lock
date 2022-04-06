@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3178c870d81b2ea5dccced7a70996cdc",
+    "content-hash": "6af243b1b13ffe10c0199bb0a23f3feb",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -5993,6 +5993,43 @@
                 "source": "https://github.com/webmozarts/assert/tree/1.10.0"
             },
             "time": "2021-03-09T10:59:23+00:00"
+        },
+        {
+            "name": "ybazli/faker",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Ybazli/faker.git",
+                "reference": "8ed1b8a5a658e2bb028f62eb6186e534a7972448"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Ybazli/faker/zipball/8ed1b8a5a658e2bb028f62eb6186e534a7972448",
+                "reference": "8ed1b8a5a658e2bb028f62eb6186e534a7972448",
+                "shasum": ""
+            },
+            "type": "laravel",
+            "autoload": {
+                "psr-4": {
+                    "Ybazli\\Faker\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "ybazli",
+                    "email": "Yashar.bazli@gmail.com"
+                }
+            ],
+            "description": "Persian fake data package for laravel",
+            "support": {
+                "issues": "https://github.com/Ybazli/faker/issues",
+                "source": "https://github.com/Ybazli/faker/tree/v1.0.1"
+            },
+            "time": "2018-02-22T14:29:51+00:00"
         }
     ],
     "packages-dev": [
