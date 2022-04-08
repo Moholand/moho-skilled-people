@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\User;
 use App\Http\Controllers\Controller;
+use App\Services\UserService;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Resources\User\UserResource;
 use App\Http\Requests\User\UserCreateRequest;
@@ -11,6 +12,13 @@ use App\Http\Requests\User\UserUpdateRequest;
 
 class UserController extends Controller
 {
+    protected $userService;
+
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -18,9 +26,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        return UserResource::collection(
-            User::with(['country', 'skills'])->paginate(20)->withQueryString()
-        );
+        $users = $this->userService->getAll();
+
+        return UserResource::collection($users);
     }
 
     /**
