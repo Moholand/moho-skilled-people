@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\User;
 use App\Http\Controllers\Controller;
 use App\Services\UserService;
-use Illuminate\Support\Facades\Hash;
 use App\Http\Resources\User\UserResource;
 use App\Http\Requests\User\UserCreateRequest;
 use App\Http\Requests\User\UserUpdateRequest;
@@ -22,7 +20,7 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function index()
     {
@@ -81,18 +79,12 @@ class UserController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id)
     {
-        $user = User::withTrashed()->findOrFail($id);
+        $result = $this->userService->deleteUser($id);
 
-        if($user->trashed()) {
-            $user->forceDelete();
-            return response()->json(['message' => 'User deleted successfully']);
-        } else {
-            $user->delete();
-            return response()->json(['message' => 'User moved to trashed successfully']);
-        }
+        return response()->json(['message' => $result]);
     }
 }

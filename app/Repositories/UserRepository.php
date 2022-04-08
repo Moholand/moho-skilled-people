@@ -42,4 +42,17 @@ class UserRepository
     {
         return User::findOrFail($id);
     }
+
+    public function deleteUser($id)
+    {
+        $user = User::withTrashed()->findOrFail($id);
+
+        if($user->trashed()) {
+            $user->forceDelete();
+            return $result = 'User deleted successfully';
+        } else {
+            $user->delete();
+            return $result = 'User moved to trashed successfully';
+        }
+    }
 }
