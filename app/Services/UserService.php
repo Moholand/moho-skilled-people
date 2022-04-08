@@ -27,4 +27,9 @@ class UserService
     {
         return $this->userRepository->updatePostData($data, $id);
     }
+
+    public function getById($id)
+    {
+        return $this->userRepository->getById($id);
+    }
 }

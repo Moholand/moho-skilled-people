@@ -37,4 +37,9 @@ class UserRepository
 
         return $user;
     }
+
+    public function getById($id)
+    {
+        return User::findOrFail($id);
+    }
 }

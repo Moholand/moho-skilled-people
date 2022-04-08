@@ -51,10 +51,12 @@ class UserController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return UserResource
      */
-    public function show(User $user)
+    public function show($id)
     {
+        $user = $this->userService->getById($id);
+
         return new UserResource($user);
     }
 
