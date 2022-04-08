@@ -21,6 +21,10 @@ class UserService
     public function storeUser($data)
     {
         return $this->userRepository->storeUserData($data);
+    }
 
+    public function updatePost($data, $id)
+    {
+        return $this->userRepository->updatePostData($data, $id);
     }
 }

@@ -26,7 +26,7 @@ class UserUpdateRequest extends FormRequest
         return [
             'english_full_name' => 'required|string|min:2|max:255',
             'persian_full_name' => 'required|string|min:2|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email,' . $this->user->id, //Ignore the current user,
+            'email' => 'required|string|email|max:255|unique:users,email,' . $this->user, //Ignore the current user,
             'password' => 'required',
             'country_id' => 'required|exists:countries,id'
         ];

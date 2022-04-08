@@ -22,7 +22,7 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
@@ -35,7 +35,7 @@ class UserController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(UserCreateRequest $request)
     {
@@ -63,17 +63,11 @@ class UserController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function update(UserUpdateRequest $request, User $user)
+    public function update(UserUpdateRequest $request, $id)
     {
-        $user->update([
-            'english_full_name' => $request->english_full_name,
-            'persian_full_name' => $request->persian_full_name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'country_id' => $request->country_id,
-        ]);
+        $user = $this->userService->updatePost($request->validated(), $id);
 
         return response()->json([
             'user' => new UserResource($user),

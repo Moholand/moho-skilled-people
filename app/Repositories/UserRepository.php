@@ -22,4 +22,19 @@ class UserRepository
             'country_id' => $data['country_id']
         ]);
     }
+
+    public function updatePostData($data, $id)
+    {
+        $user = User::findOrFail($id);
+
+        $user->update([
+            'english_full_name' => $data['english_full_name'],
+            'persian_full_name' => $data['persian_full_name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+            'country_id' => $data['country_id']
+        ]);
+
+        return $user;
+    }
 }
