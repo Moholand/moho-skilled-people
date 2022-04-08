@@ -39,13 +39,7 @@ class UserController extends Controller
      */
     public function store(UserCreateRequest $request)
     {
-        $user = User::create([
-            'english_full_name' => $request->english_full_name,
-            'persian_full_name' => $request->persian_full_name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'country_id' => $request->country_id
-        ]);
+        $user = $this->userService->storeUser($request->validated());
 
         return response()->json([
             'user' => new UserResource($user),

@@ -17,4 +17,10 @@ class UserService
     {
         return $this->userRepository->getAllUser();
     }
+
+    public function storeUser($data)
+    {
+        return $this->userRepository->storeUserData($data);
+
+    }
 }
