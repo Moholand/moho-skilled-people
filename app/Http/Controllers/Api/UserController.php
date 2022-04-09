@@ -10,8 +10,16 @@ use App\Http\Requests\User\UserUpdateRequest;
 
 class UserController extends Controller
 {
+    /**
+     * @var UserService $userService
+     */
     protected $userService;
 
+    /**
+     * UserController constructor.
+     *
+     * @param  UserService $userService
+     */
     public function __construct(UserService $userService)
     {
         $this->userService = $userService;
@@ -24,7 +32,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = $this->userService->getAll();
+        $users = $this->userService->allUsers();
 
         return UserResource::collection($users);
     }
@@ -53,7 +61,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user = $this->userService->getById($id);
+        $user = $this->userService->getUser($id);
 
         return new UserResource($user);
     }
@@ -67,7 +75,7 @@ class UserController extends Controller
      */
     public function update(UserUpdateRequest $request, $id)
     {
-        $user = $this->userService->updatePost($request->validated(), $id);
+        $user = $this->userService->updateUser($request->validated(), $id);
 
         return response()->json([
             'user' => new UserResource($user),

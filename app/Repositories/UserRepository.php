@@ -7,12 +7,21 @@ use Illuminate\Support\Facades\Hash;
 
 class UserRepository
 {
-    public function getAllUser()
+    /**
+     * Get all the users.
+     */
+    public function allUsers()
     {
         return User::with(['country', 'skills'])->paginate(20)->withQueryString();
     }
 
-    public function storeUserData($data)
+    /**
+     * Store a new user data.
+     *
+     * @param  array $data
+     * @return User
+     */
+    public function storeUser($data)
     {
         return User::create([
             'english_full_name' => $data['english_full_name'],
@@ -23,7 +32,25 @@ class UserRepository
         ]);
     }
 
-    public function updatePostData($data, $id)
+    /**
+     * Get one user data by id.
+     *
+     * @param  int $id
+     * @return User
+     */
+    public function getUser($id)
+    {
+        return User::findOrFail($id);
+    }
+
+    /**
+     * Update user data.
+     *
+     * @param  array $data
+     * @param  int $id
+     * @return User
+     */
+    public function updateUser($data, $id)
     {
         $user = User::findOrFail($id);
 
@@ -38,11 +65,12 @@ class UserRepository
         return $user;
     }
 
-    public function getById($id)
-    {
-        return User::findOrFail($id);
-    }
-
+    /**
+     * Delete user from storage.
+     *
+     * @param  int $id
+     * @return String
+     */
     public function deleteUser($id)
     {
         $user = User::withTrashed()->findOrFail($id);
