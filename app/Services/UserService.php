@@ -48,7 +48,13 @@ class UserService
      */
     public function getUser($id)
     {
-        return $this->userRepository->getUser($id);
+        $user = $this->userRepository->getUser($id);
+
+        if(auth()->user()->isNot($user)) {
+            abort(403);
+        }
+
+        return $user;
     }
 
     /**
@@ -71,6 +77,12 @@ class UserService
      */
     public function deleteUser($id)
     {
+        $user = $this->userRepository->getUser($id);
+
+        if(auth()->user()->isNot($user)) {
+            abort(403);
+        }
+
         return $this->userRepository->deleteUser($id);
     }
 }

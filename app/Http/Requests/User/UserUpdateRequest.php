@@ -13,6 +13,10 @@ class UserUpdateRequest extends FormRequest
      */
     public function authorize()
     {
+        // Compare authenticated user id with url id
+        if(auth()->user()->id !== (int)$this->user) {
+            return false;
+        }
         return true;
     }
 
