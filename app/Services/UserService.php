@@ -33,7 +33,7 @@ class UserService
      * Store a new user data.
      *
      * @param  array $data
-     * @return User
+     * @return \App\Models\User
      */
     public function storeUser($data)
     {
@@ -44,13 +44,13 @@ class UserService
      * Get one user data by id.
      *
      * @param  int $id
-     * @return User
+     * @return \App\Models\User
      */
     public function getUser($id)
     {
         $user = $this->userRepository->getUser($id);
 
-        if(auth()->user()->isNot($user)) {
+        if (auth()->user()->cannot('view', $user)) {
             abort(403);
         }
 
@@ -62,10 +62,16 @@ class UserService
      *
      * @param  array $data
      * @param  int $id
-     * @return User
+     * @return \App\Models\User
      */
     public function updateUser($data, $id)
     {
+        $user = $this->userRepository->getUser($id);
+
+        if(auth()->user()->cannot('update', $user)) {
+            abort(403);
+        }
+
         return $this->userRepository->updateUser($data, $id);
     }
 
@@ -79,7 +85,7 @@ class UserService
     {
         $user = $this->userRepository->getUser($id);
 
-        if(auth()->user()->isNot($user)) {
+        if(auth()->user()->cannot('delete', $user) || auth()->user()->cannot('forceDelete', $user)) {
             abort(403);
         }
 
