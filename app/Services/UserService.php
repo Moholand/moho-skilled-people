@@ -48,13 +48,7 @@ class UserService
      */
     public function getUser($id)
     {
-        $user = $this->userRepository->getUser($id);
-
-        if (auth()->user()->cannot('view', $user)) {
-            abort(403);
-        }
-
-        return $user;
+        return $this->userRepository->getUser($id);
     }
 
     /**
@@ -66,12 +60,6 @@ class UserService
      */
     public function updateUser($data, $id)
     {
-        $user = $this->userRepository->getUser($id);
-
-        if(auth()->user()->cannot('update', $user)) {
-            abort(403);
-        }
-
         return $this->userRepository->updateUser($data, $id);
     }
 
@@ -83,12 +71,6 @@ class UserService
      */
     public function deleteUser($id)
     {
-        $user = $this->userRepository->getUser($id);
-
-        if(auth()->user()->cannot('delete', $user) || auth()->user()->cannot('forceDelete', $user)) {
-            abort(403);
-        }
-
         return $this->userRepository->deleteUser($id);
     }
 

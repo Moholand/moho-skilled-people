@@ -57,12 +57,14 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  User $user
      * @return UserResource
      */
-    public function show($id)
+    public function show(User $user)
     {
-        $user = $this->userService->getUser($id);
+        $this->authorize('view', $user);
+
+        $user = $this->userService->getUser($user->id);
 
         return new UserResource($user);
     }
@@ -71,12 +73,14 @@ class UserController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  User $user
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(UserUpdateRequest $request, $id)
+    public function update(UserUpdateRequest $request, User $user)
     {
-        $user = $this->userService->updateUser($request->validated(), $id);
+        $this->authorize('update', $user);
+
+        $user = $this->userService->updateUser($request->validated(), $user->id);
 
         return response()->json([
             'user' => new UserResource($user),
@@ -87,12 +91,15 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  User $user
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        $result = $this->userService->deleteUser($id);
+        $this->authorize('delete', $user);
+        $this->authorize('forceDelete', $user);
+
+        $result = $this->userService->deleteUser($user->id);
 
         return response()->json(['message' => $result]);
     }
@@ -100,7 +107,7 @@ class UserController extends Controller
     /**
      *  Restore user data
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function restore($id)
