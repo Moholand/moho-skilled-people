@@ -91,4 +91,23 @@ class UserService
 
         return $this->userRepository->deleteUser($id);
     }
+
+    /**
+     * Restore the soft deleted user.
+     *
+     * @param  int $id
+     * @return void
+     */
+    public function restoreUser($id)
+    {
+        $this->userRepository->restoreUser($id);
+    }
+
+    /**
+     * Get all the trashed users.
+     */
+    public function trashedUsers()
+    {
+        return $this->userRepository->trashedUsers();
+    }
 }

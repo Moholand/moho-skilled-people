@@ -83,4 +83,23 @@ class UserRepository
             return $result = 'User moved to trashed successfully';
         }
     }
+
+    /**
+     * Restore user from storage.
+     *
+     * @param  int $id
+     * @return void
+     */
+    public function restoreUser($id)
+    {
+        User::onlyTrashed()->findOrFail($id)->restore();
+    }
+
+    /**
+     * Get all the trashed users.
+     */
+    public function trashedUsers()
+    {
+        return User::with(['country', 'skills'])->onlyTrashed()->paginate(20)->withQueryString();
+    }
 }

@@ -16,7 +16,7 @@ Route::group(['prefix' => 'auth'], function () {
 });
 
 Route::group(['middleware' => 'auth:api'], function () {
+  Route::get('users/trashed', [UserController::class, 'trashed'])->name('users.trashed');
+  Route::get('users/{user}/restore', [UserController::class, 'restore'])->name('users.restore');
   Route::apiResource('users', UserController::class);
-  Route::get('trashed-users', UserTrashedController::class)->name('users.trashed');
-  Route::get('users/{user}/restore', UserRestoreController::class)->name('users.restore');
 });

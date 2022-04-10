@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Services\UserService;
 use App\Http\Resources\User\UserResource;
 use App\Http\Requests\User\UserCreateRequest;
@@ -94,5 +95,30 @@ class UserController extends Controller
         $result = $this->userService->deleteUser($id);
 
         return response()->json(['message' => $result]);
+    }
+
+    /**
+     *  Restore user data
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function restore($id)
+    {
+        $this->userService->restoreUser($id);
+
+        return response()->json(['message' => 'User restored successfully']);
+    }
+
+    /**
+     * Display a listing of the trashed users.
+     *
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
+    public function trashed()
+    {
+        $users = $this->userService->trashedUsers();
+
+        return UserResource::collection($users);
     }
 }
