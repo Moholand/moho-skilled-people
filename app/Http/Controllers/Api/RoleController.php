@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\Role;
 use App\Services\RoleService;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Role\RoleResource;
@@ -32,6 +33,8 @@ class RoleController extends Controller
      */
     public function index()
     {
+        $this->authorize('viewAny', Role::class);
+
         $roles = $this->roleService->allRoles();
 
         return RoleResource::collection($roles);
@@ -45,6 +48,8 @@ class RoleController extends Controller
      */
     public function store(RoleCreateRequest $request)
     {
+        $this->authorize('create', Role::class);
+
         $role = $this->roleService->storeRole($request->validated());
 
         return response()->json([
