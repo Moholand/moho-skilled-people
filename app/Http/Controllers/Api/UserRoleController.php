@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\User;
+use App\Services\UserRoleService;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\User\UserResource;
 use App\Http\Requests\UserRole\UserRoleCreateRequest;
 
 class UserRoleController extends Controller
@@ -26,16 +27,16 @@ class UserRoleController extends Controller
     /**
      * Store a new role for the user.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  UserRoleCreateRequest  $request
+     * @param  User $user
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(UserRoleCreateRequest $request, User $user)
     {
-        $user = $this->userRoleService->storeUserRole($request->validated());
+        $this->userRoleService->storeUserRole($request->role_id, $user->id);
 
         return response()->json([
-            'user' => new UserResource($user),
-            'message' => 'User created successfully'
+            'message' => 'User role created successfully'
         ], 201);
     }
 }
