@@ -23,8 +23,7 @@ class User extends Authenticatable implements JWTSubject
         'persian_full_name',
         'email',
         'password',
-        'country_id',
-        'role_id'
+        'country_id'
     ];
 
     /**
@@ -76,8 +75,8 @@ class User extends Authenticatable implements JWTSubject
         return $this->belongsToMany(Skill::class)->withPivot(['level']);
     }
 
-    public function role()
+    public function roles()
     {
-        return $this->belongsTo(Role::class);
+        return $this->belongsToMany(Role::class);
     }
 }

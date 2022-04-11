@@ -23,9 +23,8 @@ class UserResource extends JsonResource
             'persian_full_name' => $this->persian_full_name,
             'email' => $this->email,
             'country_id' => $this->country_id,
-            'role_id' => $this->role_id,
             'country' => new CountryResource($this->country),
-            'role' => new RoleResource($this->role),
+            'roles' => RoleResource::collection($this->roles),
             'skills' => SkillResource::collection($this->skills)
         ];
     }

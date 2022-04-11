@@ -12,7 +12,7 @@ class UserRepository
      */
     public function allUsers()
     {
-        return User::with(['country', 'skills', 'role'])->paginate(20)->withQueryString();
+        return User::with(['country', 'skills', 'roles'])->paginate(20)->withQueryString();
     }
 
     /**
@@ -40,7 +40,7 @@ class UserRepository
      */
     public function getUser($id)
     {
-        return User::with(['country', 'skills', 'role'])->findOrFail($id);
+        return User::with(['country', 'skills', 'roles'])->findOrFail($id);
     }
 
     /**

@@ -18,7 +18,9 @@ class RolePolicy
      */
     public function viewAny(User $user)
     {
-        return $user->role_id === Role::IS_ADMIN;
+        $roles_id = $this->getRolesId($user);
+
+        return in_array(Role::IS_ADMIN, $roles_id);
     }
 
     /**
@@ -29,6 +31,19 @@ class RolePolicy
      */
     public function create(User $user)
     {
-        return $user->role_id === Role::IS_ADMIN;
+        $roles_id = $this->getRolesId($user);
+
+        return in_array(Role::IS_ADMIN, $roles_id);
+    }
+
+    /**
+     * Determine current user roles id.
+     *
+     * @param  \App\Models\User  $user
+     * @return array
+     */
+    protected function getRolesId($user): array
+    {
+        return $user->roles()->get()->pluck('id')->toArray();
     }
 }

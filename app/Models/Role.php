@@ -12,7 +12,6 @@ class Role extends Model
     const IS_ADMIN = 1;
     const IS_EMPLOYER = 2;
     const IS_CANDIDATE = 3;
-    const IS_BOTH = 4;
 
     protected $fillable = ['name'];
 
@@ -20,6 +19,6 @@ class Role extends Model
 
     public function users()
     {
-        return $this->hasMany(User::class);
+        return $this->belongsToMany(User::class);
     }
 }
