@@ -20,7 +20,7 @@ class RolePolicy
     {
         $roles_id = $this->getRolesId($user);
 
-        return in_array(Role::IS_ADMIN, $roles_id);
+        return in_array(Role::ADMIN_ROLE_ID, $roles_id);
     }
 
     /**
@@ -33,7 +33,7 @@ class RolePolicy
     {
         $roles_id = $this->getRolesId($user);
 
-        return in_array(Role::IS_ADMIN, $roles_id);
+        return in_array(Role::ADMIN_ROLE_ID, $roles_id);
     }
 
     /**
