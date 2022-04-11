@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\RoleController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Api\UserRoleController;
 
 Route::group(['prefix' => 'auth'], function () {
   Route::post('login', [AuthController::class, 'login']);
@@ -23,5 +24,8 @@ Route::group(['middleware' => 'auth:api'], function () {
 
   /** roles routes */
   Route::apiResource('roles', RoleController::class)->only(['index', 'store']);
+
+  /** user roles routes */
+  Route::apiResource('users.roles', UserRoleController::class)->only(['store', 'delete']);
 
 });
