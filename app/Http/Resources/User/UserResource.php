@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\User;
 
+use App\Http\Resources\Role\RoleResource;
 use App\Http\Resources\Skill\SkillResource;
 use App\Http\Resources\Country\CountryResource;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -22,7 +23,9 @@ class UserResource extends JsonResource
             'persian_full_name' => $this->persian_full_name,
             'email' => $this->email,
             'country_id' => $this->country_id,
+            'role_id' => $this->role_id,
             'country' => new CountryResource($this->country),
+            'role' => new RoleResource($this->role),
             'skills' => SkillResource::collection($this->skills)
         ];
     }
