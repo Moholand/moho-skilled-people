@@ -34,7 +34,7 @@ class UserRoleController extends Controller
      */
     public function store(UserRoleCreateRequest $request, User $user)
     {
-        $this->userRoleService->storeUserRole($request->role_id, $user->id);
+        $this->userRoleService->storeUserRole($user->id, $request->role_id);
 
         return response()->json([
             'message' => 'User role created successfully'

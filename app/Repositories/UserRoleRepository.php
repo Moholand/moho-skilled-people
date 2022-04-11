@@ -9,15 +9,15 @@ class UserRoleRepository
     /**
      * Store a new role for the user.
      *
-     * @param  int $role_id
      * @param  int $user_id
+     * @param  int $role_id
      * @return void
      */
-    public function storeUserRole($role_id, $user_id)
+    public function storeUserRole($user_id, $role_id)
     {
         DB::table('role_user')->insert([
-            'role_id' => $role_id,
-            'user_id' => $user_id
+            'user_id' => $user_id,
+            'role_id' => $role_id
         ]);
     }
 
@@ -26,7 +26,7 @@ class UserRoleRepository
      *
      * @param  int $user_id
      * @param  int $role_id
-     * @return String
+     * @return void
      */
     public function deleteUserRole($user_id, $role_id)
     {

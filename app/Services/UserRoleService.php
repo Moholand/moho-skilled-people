@@ -24,13 +24,13 @@ class UserRoleService
     /**
      * Store a new role for the user.
      *
-     * @param  int $role_id
      * @param  int $user_id
+     * @param  int $role_id
      * @return void
      */
-    public function storeUserRole($role_id, $user_id)
+    public function storeUserRole($user_id, $role_id)
     {
-        $this->userRoleRepository->storeUserRole($role_id, $user_id);
+        $this->userRoleRepository->storeUserRole($user_id, $role_id);
     }
 
     /**
@@ -38,10 +38,10 @@ class UserRoleService
      *
      * @param  int $user_id
      * @param  int $role_id
-     * @return String
+     * @return void
      */
     public function deleteUserRole($user_id, $role_id)
     {
-        return $this->userRoleRepository->deleteUserRole($user_id, $role_id);
+        $this->userRoleRepository->deleteUserRole($user_id, $role_id);
     }
 }
