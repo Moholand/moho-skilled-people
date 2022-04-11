@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\Role;
 use App\Models\User;
 use App\Services\UserRoleService;
 use App\Http\Controllers\Controller;
@@ -38,5 +39,19 @@ class UserRoleController extends Controller
         return response()->json([
             'message' => 'User role created successfully'
         ], 201);
+    }
+
+    /**
+     * Remove the specified role from the user.
+     *
+     * @param  User $user
+     * @param  Role $role
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function destroy(User $user, Role $role)
+    {
+        $this->userRoleService->deleteUserRole($user->id, $role->id);
+
+        return response()->json(['message' => 'User role deleted successfully']);
     }
 }

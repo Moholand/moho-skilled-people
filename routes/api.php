@@ -26,6 +26,6 @@ Route::group(['middleware' => 'auth:api'], function () {
   Route::apiResource('roles', RoleController::class)->only(['index', 'store']);
 
   /** user roles routes */
-  Route::apiResource('users.roles', UserRoleController::class)->only(['store', 'delete']);
+  Route::apiResource('users.roles', UserRoleController::class)->only(['store', 'destroy']);
 
 });
