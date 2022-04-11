@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\User\UserResource;
+use App\Http\Requests\UserRole\UserRoleCreateRequest;
 
 class UserRoleController extends Controller
 {
