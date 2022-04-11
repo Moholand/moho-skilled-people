@@ -13,4 +13,15 @@ class RoleRepository
     {
         return Role::get();
     }
+
+    /**
+     * Store a new role data.
+     *
+     * @param  array $data
+     * @return Role
+     */
+    public function storeRole($data)
+    {
+        return Role::create(['name' => $data['name']]);
+    }
 }

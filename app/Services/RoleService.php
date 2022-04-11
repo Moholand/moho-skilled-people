@@ -28,4 +28,15 @@ class RoleService
     {
         return $this->roleRepository->allRoles();
     }
+
+    /**
+     * Store a new role data.
+     *
+     * @param  array $data
+     * @return \App\Models\Role
+     */
+    public function storeRole($data)
+    {
+        return $this->roleRepository->storeRole($data);
+    }
 }
