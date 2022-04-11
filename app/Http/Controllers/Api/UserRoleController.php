@@ -34,6 +34,8 @@ class UserRoleController extends Controller
      */
     public function store(UserRoleCreateRequest $request, User $user)
     {
+        $this->authorize('addRole', User::class);
+
         $this->userRoleService->storeUserRole($user->id, $request->role_id);
 
         return response()->json([
@@ -50,6 +52,8 @@ class UserRoleController extends Controller
      */
     public function destroy(User $user, Role $role)
     {
+        $this->authorize('deleteRole', User::class);
+
         $this->userRoleService->deleteUserRole($user->id, $role->id);
 
         return response()->json(['message' => 'User role deleted successfully']);
