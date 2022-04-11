@@ -22,6 +22,21 @@ class UserRoleRepository
     }
 
     /**
+     * Check existence of role_user table record.
+     *
+     * @param  int $user_id
+     * @param  int $role_id
+     * @return bool
+     */
+    public function checkUserRole($user_id, $role_id)
+    {
+        return DB::table('role_user')
+            ->where('user_id', $user_id)
+            ->where('role_id', $role_id)
+            ->exists();
+    }
+
+    /**
      * Delete role for the user.
      *
      * @param  int $user_id

@@ -30,6 +30,10 @@ class UserRoleService
      */
     public function storeUserRole($user_id, $role_id)
     {
+        if($this->userRoleRepository->checkUserRole($user_id, $role_id)) {
+            abort(409);
+        };
+
         $this->userRoleRepository->storeUserRole($user_id, $role_id);
     }
 
@@ -42,6 +46,10 @@ class UserRoleService
      */
     public function deleteUserRole($user_id, $role_id)
     {
+        if(!$this->userRoleRepository->checkUserRole($user_id, $role_id)) {
+            abort(409);
+        };
+
         $this->userRoleRepository->deleteUserRole($user_id, $role_id);
     }
 }
