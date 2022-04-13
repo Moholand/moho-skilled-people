@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Models\User;
+use App\Events\UserRegistered;
 use App\Repositories\UserRepository;
 
 class UserService
@@ -35,9 +37,17 @@ class UserService
      * @param  array $data
      * @return \App\Models\User
      */
-    public function storeUser($data)
+    public function storeUser(array $data): User
     {
-        return $this->userRepository->storeUser($data);
+        $role = $data['role'];
+        unset($data['role']);
+
+        $user = $this->userRepository->storeUser($data);
+
+        // Event fired -> Add role for user listener
+        UserRegistered::dispatch($user->id, $role);
+
+        return $user;
     }
 
     /**

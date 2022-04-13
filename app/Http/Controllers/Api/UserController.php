@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\User;
-use App\Events\UserRegistered;
 use App\Http\Controllers\Controller;
 use App\Services\UserService;
 use App\Http\Resources\User\UserResource;
@@ -47,10 +46,7 @@ class UserController extends Controller
      */
     public function store(UserCreateRequest $request)
     {
-        $user = $this->userService->storeUser($request->safe()->except('role'));
-
-        // Event fired -> Add role for user listener
-        UserRegistered::dispatch($user->id, $request->safe()->only('role')['role']);
+        $user = $this->userService->storeUser($request->validated());
 
         return response()->json([
             'user' => new UserResource($user),
