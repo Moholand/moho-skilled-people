@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Role;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -14,8 +15,9 @@ class CountrySeeder extends Seeder
      */
     public function run()
     {
-        // Create 100 countries and foreach country create 1 user
-        // for each user add one role
+        // 100 countries and foreach country 1 user created
+        // for each user one role added
+        // for each user with candidate role, one candidates table row created
         for($i=1; $i<=100; $i++) {
             $country = \App\Models\Country::factory()->create();
 
@@ -24,9 +26,15 @@ class CountrySeeder extends Seeder
             ]);
 
             DB::table('role_user')->insert([
-                'role_id' => random_int(1, 3),
+                'role_id' => $role_id = random_int(1, 3),
                 'user_id' => $user->id
             ]);
+
+            if($role_id === Role::CANDIDATE_ROLE_ID) {
+                \App\Models\Candidate::factory()->create([
+                    'user_id' => $user->id
+                ]);
+            }
         }
     }
 }
