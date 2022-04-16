@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Http\Controllers\Controller;
 use App\Services\UserService;
 use App\Http\Resources\User\UserResource;
 use App\Http\Requests\User\UserCreateRequest;

@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -55,5 +56,27 @@ class UserPolicy
     public function forceDelete(User $user, User $model)
     {
         return true;
+    }
+
+    /**
+     * Determine whether the user can permanently add role for the model.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function addRole(User $user)
+    {
+        return $user->roles()->get()->pluck('id')->contains(Role::ADMIN_ROLE_ID);
+    }
+
+    /**
+     * Determine whether the user can permanently delete role for the model.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function deleteRole(User $user)
+    {
+        return $user->roles()->get()->pluck('id')->contains(Role::ADMIN_ROLE_ID);
     }
 }

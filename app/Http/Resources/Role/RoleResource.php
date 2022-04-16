@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\Country;
+namespace App\Http\Resources\Role;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CountryResource extends JsonResource
+class RoleResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,6 +15,7 @@ class CountryResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'id' => $this->id,
             'name' => $this->name
         ];
     }

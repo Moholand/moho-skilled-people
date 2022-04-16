@@ -74,4 +74,9 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->belongsToMany(Skill::class)->withPivot(['level']);
     }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
 }
