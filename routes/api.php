@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\CandidateController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\RoleController;
@@ -28,4 +29,6 @@ Route::group(['middleware' => 'auth:api'], function () {
   /** user roles routes */
   Route::apiResource('users.roles', UserRoleController::class)->only(['store', 'destroy']);
 
+  /** candidates routes */
+  Route::apiResource('candidates', CandidateController::class)->only(['index', 'update', 'destroy']);
 });
