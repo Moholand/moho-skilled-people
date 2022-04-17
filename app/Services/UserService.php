@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\User;
 use App\Events\UserRegistered;
 use App\Repositories\UserRepository;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class UserService
 {
@@ -25,8 +26,10 @@ class UserService
 
     /**
      * Get all the users.
+     *
+     * @return LengthAwarePaginator
      */
-    public function allUsers()
+    public function allUsers(): LengthAwarePaginator
     {
         return $this->userRepository->allUsers();
     }
@@ -56,7 +59,7 @@ class UserService
      * @param  int $id
      * @return \App\Models\User
      */
-    public function getUser($id)
+    public function getUser(int $id): User
     {
         return $this->userRepository->getUser($id);
     }
@@ -79,7 +82,7 @@ class UserService
      * @param  int $id
      * @return \App\Models\User
      */
-    public function updateUser($data, $id)
+    public function updateUser(array $data, int $id): User
     {
         return $this->userRepository->updateUser($data, $id);
     }
@@ -101,15 +104,17 @@ class UserService
      * @param  int $id
      * @return void
      */
-    public function restoreUser($id)
+    public function restoreUser(int $id): void
     {
         $this->userRepository->restoreUser($id);
     }
 
     /**
      * Get all the trashed users.
+     *
+     * @return LengthAwarePaginator
      */
-    public function trashedUsers()
+    public function trashedUsers(): LengthAwarePaginator
     {
         return $this->userRepository->trashedUsers();
     }

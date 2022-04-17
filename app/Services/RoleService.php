@@ -2,7 +2,9 @@
 
 namespace App\Services;
 
+use App\Models\Role;
 use App\Repositories\RoleRepository;
+use Ramsey\Collection\Collection;
 
 class RoleService
 {
@@ -23,8 +25,10 @@ class RoleService
 
     /**
      * Get all the roles.
+     *
+     * @return Collection
      */
-    public function allRoles()
+    public function allRoles(): Collection
     {
         return $this->roleRepository->allRoles();
     }
@@ -35,7 +39,7 @@ class RoleService
      * @param  array $data
      * @return \App\Models\Role
      */
-    public function storeRole($data)
+    public function storeRole(array $data): Role
     {
         return $this->roleRepository->storeRole($data);
     }

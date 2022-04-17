@@ -44,7 +44,7 @@ class UserRoleService
      * @param  int $role_id
      * @return void
      */
-    public function deleteUserRole($user_id, $role_id)
+    public function deleteUserRole(int $user_id, int $role_id): void
     {
         if(!$this->userRoleRepository->checkUserRole($user_id, $role_id)) {
             abort(409);
