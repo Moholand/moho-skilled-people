@@ -62,6 +62,17 @@ class UserService
     }
 
     /**
+     * Get one user data by id, whether trashed or not.
+     *
+     * @param  int $id
+     * @return \App\Models\User
+     */
+    public function getUserWithTrashed(int $id): User
+    {
+        return $this->userRepository->getUserWithTrashed($id);
+    }
+
+    /**
      * Update user data.
      *
      * @param  array $data
@@ -79,7 +90,7 @@ class UserService
      * @param  int $id
      * @return String
      */
-    public function deleteUser($id)
+    public function deleteUser(int $id): string
     {
         return $this->userRepository->deleteUser($id);
     }

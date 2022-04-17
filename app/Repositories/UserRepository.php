@@ -44,6 +44,17 @@ class UserRepository
     }
 
     /**
+     * Get one user data by id, whether trashed or not.
+     *
+     * @param  int $id
+     * @return User
+     */
+    public function getUserWithTrashed(int $id): User
+    {
+        return User::withTrashed()->findOrFail($id);
+    }
+
+    /**
      * Update user data.
      *
      * @param  array $data
@@ -71,9 +82,9 @@ class UserRepository
      * @param  int $id
      * @return String
      */
-    public function deleteUser($id)
+    public function deleteUser(int $id): string
     {
-        $user = User::withTrashed()->findOrFail($id);
+        $user = $this->getUserWithTrashed($id);
 
         if($user->trashed()) {
             $user->forceDelete();

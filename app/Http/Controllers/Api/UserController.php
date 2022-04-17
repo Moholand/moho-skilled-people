@@ -91,15 +91,16 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  User $user
+     * @param  int $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(User $user)
+    public function destroy(int $id)
     {
-        $this->authorize('delete', $user);
-        $this->authorize('forceDelete', $user);
+        $user = $this->userService->getUserWithTrashed($id);
 
-        $result = $this->userService->deleteUser($user->id);
+        $this->authorize('delete', $user);
+
+        $result = $this->userService->deleteUser($id);
 
         return response()->json(['message' => $result]);
     }
