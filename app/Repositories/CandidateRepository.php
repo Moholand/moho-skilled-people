@@ -15,6 +15,11 @@ class CandidateRepository
         return Candidate::with('user')->paginate(20)->withQueryString();
     }
 
+    public function getCandidateWithTrashed(int $id): Candidate
+    {
+        return Candidate::withTrashed()->findOrFail($id);
+    }
+
     /**
      * Store a new candidate data.
      *
@@ -50,10 +55,18 @@ class CandidateRepository
      * Delete candidate from storage.
      *
      * @param  int $id
-     * @return void
+     * @return string
      */
-    public function deleteCandidate(int $id): void
+    public function deleteCandidate(int $id): string
     {
-        Candidate::findOrFail($id)->delete();
+        $candidate = $this->getCandidateWithTrashed($id);
+
+        if($candidate->trashed()) {
+            $candidate->forceDelete();
+            return 'Candidate deleted successfully';
+        } else {
+            $candidate->delete();
+            return 'Candidate moved to trashed successfully';
+        }
     }
 }

@@ -64,12 +64,14 @@ class CandidateController extends Controller
      * @param  Candidate $candidate
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(Candidate $candidate)
+    public function destroy($id)
     {
+        $candidate = $this->candidateService->getCandidateWithTrashed($id);
+
         $this->authorize('delete', $candidate);
 
-        $this->candidateService->deleteCandidate($candidate->id);
+        $result = $this->candidateService->deleteCandidate($id);
 
-        return response()->json(['message' => 'Candidate deleted successfully']);
+        return response()->json(['message' => $result]);
     }
 }

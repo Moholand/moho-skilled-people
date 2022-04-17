@@ -43,6 +43,17 @@ class CandidateService
     }
 
     /**
+     * Get the candidate data, whether trashed or not.
+     *
+     * @param  int $id
+     * @return Candidate
+     */
+    public function getCandidateWithTrashed(int $id): Candidate
+    {
+        return $this->candidateRepository->getCandidateWithTrashed($id);
+    }
+
+    /**
      * Update candidate data.
      *
      * @param  array $data
@@ -58,10 +69,10 @@ class CandidateService
      * Delete candidate from storage.
      *
      * @param  int $id
-     * @return void
+     * @return string
      */
-    public function deleteCandidate(int $id): void
+    public function deleteCandidate(int $id): string
     {
-        $this->candidateRepository->deleteCandidate($id);
+        return $this->candidateRepository->deleteCandidate($id);
     }
 }
