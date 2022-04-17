@@ -113,6 +113,8 @@ class UserController extends Controller
      */
     public function restore($id)
     {
+        $this->authorize('restore', User::class);
+
         $this->userService->restoreUser($id);
 
         return response()->json(['message' => 'User restored successfully']);
@@ -125,6 +127,8 @@ class UserController extends Controller
      */
     public function trashed()
     {
+        $this->authorize('trashed', User::class);
+
         $users = $this->userService->trashedUsers();
 
         return UserResource::collection($users);

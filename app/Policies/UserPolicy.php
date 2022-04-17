@@ -47,6 +47,28 @@ class UserPolicy
     }
 
     /**
+     * Determine whether the user can restore the model.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function restore(User $user)
+    {
+        return $this->isAdmin($user);
+    }
+
+    /**
+     * Determine whether the user can view all the trashed model.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function trashed(User $user)
+    {
+        return $this->isAdmin($user);
+    }
+
+    /**
      * Determine whether the user can permanently add role for the model.
      *
      * @param  \App\Models\User  $user
