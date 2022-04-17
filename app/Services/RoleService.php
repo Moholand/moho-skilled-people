@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Models\Role;
 use App\Repositories\RoleRepository;
-use Ramsey\Collection\Collection;
+use Illuminate\Database\Eloquent\Collection;
 
 class RoleService
 {

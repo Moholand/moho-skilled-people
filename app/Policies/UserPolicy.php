@@ -2,13 +2,13 @@
 
 namespace App\Policies;
 
-use App\Models\Role;
 use App\Models\User;
+use App\Traits\Policy\UserRole;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class UserPolicy
 {
-    use HandlesAuthorization;
+    use HandlesAuthorization, UserRole;
 
     /**
      * Determine whether the user can view the model.
@@ -88,16 +88,5 @@ class UserPolicy
     public function deleteRole(User $user)
     {
         return $this->isAdmin($user);
-    }
-
-    /**
-     * Determine whether the user is admin or not.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function isAdmin($user)
-    {
-        return $user->roles()->get()->pluck('id')->contains(Role::ADMIN_ROLE_ID);
     }
 }

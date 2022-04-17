@@ -2,14 +2,14 @@
 
 namespace App\Policies;
 
-use App\Models\Candidate;
-use App\Models\Role;
 use App\Models\User;
+use App\Models\Candidate;
+use App\Traits\Policy\UserRole;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class CandidatePolicy
 {
-    use HandlesAuthorization;
+    use HandlesAuthorization, UserRole;
 
     /**
      * Determine whether the user can view any models.
@@ -44,16 +44,5 @@ class CandidatePolicy
     public function delete(User $user, Candidate $candidate)
     {
         return $user->is($candidate->user) || $this->isAdmin($user);
-    }
-
-    /**
-     * Determine whether the user is admin or not.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function isAdmin($user)
-    {
-        return $user->roles()->get()->pluck('id')->contains(Role::ADMIN_ROLE_ID);
     }
 }
