@@ -2,13 +2,13 @@
 
 namespace App\Policies;
 
-use App\Models\Role;
 use App\Models\User;
+use App\Traits\Policy\UserRole;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class UserPolicy
 {
-    use HandlesAuthorization;
+    use HandlesAuthorization, UserRole;
 
     /**
      * Determine whether the user can view the model.
@@ -43,19 +43,29 @@ class UserPolicy
      */
     public function delete(User $user, User $model)
     {
-        return $user->is($model);
+        return $user->is($model) || $this->isAdmin($user);
     }
 
     /**
-     * Determine whether the user can permanently delete the model.
+     * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $model
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, User $model)
+    public function restore(User $user)
     {
-        return true;
+        return $this->isAdmin($user);
+    }
+
+    /**
+     * Determine whether the user can view all the trashed model.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function trashed(User $user)
+    {
+        return $this->isAdmin($user);
     }
 
     /**
@@ -66,7 +76,7 @@ class UserPolicy
      */
     public function addRole(User $user)
     {
-        return $user->roles()->get()->pluck('id')->contains(Role::ADMIN_ROLE_ID);
+        return $this->isAdmin($user);
     }
 
     /**
@@ -77,6 +87,6 @@ class UserPolicy
      */
     public function deleteRole(User $user)
     {
-        return $user->roles()->get()->pluck('id')->contains(Role::ADMIN_ROLE_ID);
+        return $this->isAdmin($user);
     }
 }

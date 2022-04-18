@@ -65,6 +65,9 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
+    /**
+     * User relations.
+     */
     public function country()
     {
         return $this->belongsTo(Country::class);
@@ -78,5 +81,10 @@ class User extends Authenticatable implements JWTSubject
     public function roles()
     {
         return $this->belongsToMany(Role::class);
+    }
+
+    public function candidate()
+    {
+        return $this->hasOne(Candidate::class);
     }
 }

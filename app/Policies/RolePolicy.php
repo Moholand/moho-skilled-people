@@ -2,13 +2,13 @@
 
 namespace App\Policies;
 
-use App\Models\Role;
 use App\Models\User;
+use App\Traits\Policy\UserRole;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class RolePolicy
 {
-    use HandlesAuthorization;
+    use HandlesAuthorization, UserRole;
 
     /**
      * Determine whether the user can view any models.
@@ -18,9 +18,7 @@ class RolePolicy
      */
     public function viewAny(User $user)
     {
-        $roles_id = $this->getRolesId($user);
-
-        return in_array(Role::ADMIN_ROLE_ID, $roles_id);
+        return $this->isAdmin($user);
     }
 
     /**
@@ -31,19 +29,6 @@ class RolePolicy
      */
     public function create(User $user)
     {
-        $roles_id = $this->getRolesId($user);
-
-        return in_array(Role::ADMIN_ROLE_ID, $roles_id);
-    }
-
-    /**
-     * Determine current user roles id.
-     *
-     * @param  \App\Models\User  $user
-     * @return array
-     */
-    protected function getRolesId($user): array
-    {
-        return $user->roles()->get()->pluck('id')->toArray();
+        return $this->isAdmin($user);
     }
 }
