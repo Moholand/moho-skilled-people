@@ -89,4 +89,39 @@ class UserPolicy
     {
         return $this->isAdmin($user);
     }
+
+    /**
+     * Determine whether the user can permanently create employer.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function createEmployer(User $user, User $model)
+    {
+        return $this->isEmployer($model) || $this->isAdmin($user);
+    }
+
+    /**
+     * Determine whether the user can update the employer.
+     *
+     * @param  \App\Models\User  $user
+     * @param  int $employer_id
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function updateEmployer(User $user, User $model, int $employer_id)
+    {
+        return $model->employers->contains($employer_id) || $this->isAdmin($user);
+    }
+
+    /**
+     * Determine whether the user can delete the employer.
+     *
+     * @param  \App\Models\User  $user
+     * @param  int $employer_id
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function deleteEmployer(User $user, User $model, int $employer_id)
+    {
+        return $model->employers->contains($employer_id) || $this->isAdmin($user);
+    }
 }

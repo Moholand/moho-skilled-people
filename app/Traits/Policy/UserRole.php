@@ -17,4 +17,15 @@ trait UserRole
     {
         return $user->roles()->get()->pluck('id')->contains(Role::ADMIN_ROLE_ID);
     }
+
+    /**
+     * Determine whether the user is employer or not.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function isEmployer(User $user): bool
+    {
+        return $user->roles()->get()->pluck('id')->contains(Role::EMPLOYER_ROLE_ID);
+    }
 }
