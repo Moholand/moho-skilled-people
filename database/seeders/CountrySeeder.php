@@ -18,6 +18,7 @@ class CountrySeeder extends Seeder
         // 100 countries and foreach country 1 user created
         // for each user one role added
         // for each user with candidate role, one candidates table row created
+        // for each user with employer role, one employer table and employer_user table row created
         for($i=1; $i<=100; $i++) {
             $country = \App\Models\Country::factory()->create();
 
@@ -32,6 +33,15 @@ class CountrySeeder extends Seeder
 
             if($role_id === Role::CANDIDATE_ROLE_ID) {
                 \App\Models\Candidate::factory()->create([
+                    'user_id' => $user->id
+                ]);
+            }
+
+            if($role_id === Role::EMPLOYER_ROLE_ID) {
+                $employer = \App\Models\Employer::factory()->create();
+
+                DB::table('employer_user')->insert([
+                    'employer_id' => $employer->id,
                     'user_id' => $user->id
                 ]);
             }
