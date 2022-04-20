@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Api\CandidateController;
+use App\Http\Controllers\Api\EmployerController;
+use App\Http\Controllers\Api\UserEmployerController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\RoleController;
@@ -31,4 +33,10 @@ Route::group(['middleware' => 'auth:api'], function () {
 
   /** candidates routes */
   Route::apiResource('candidates', CandidateController::class)->only(['index', 'update', 'destroy']);
+
+  /** employers routes */
+  Route::apiResource('employers', EmployerController::class);
+
+  /** users employers routes */
+  Route::apiResource('users.employers', UserEmployerController::class);
 });
