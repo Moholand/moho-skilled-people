@@ -13,7 +13,7 @@ class UserRoleRepository
      * @param  int $role_id
      * @return void
      */
-    public function storeUserRole($user_id, $role_id)
+    public function storeUserRole(int $user_id, int $role_id): void
     {
         DB::table('role_user')->insert([
             'user_id' => $user_id,
@@ -28,7 +28,7 @@ class UserRoleRepository
      * @param  int $role_id
      * @return bool
      */
-    public function checkUserRole($user_id, $role_id)
+    public function checkUserRole(int $user_id, int $role_id): bool
     {
         return DB::table('role_user')
             ->where('user_id', $user_id)
@@ -43,7 +43,7 @@ class UserRoleRepository
      * @param  int $role_id
      * @return void
      */
-    public function deleteUserRole($user_id, $role_id)
+    public function deleteUserRole(int $user_id, int $role_id): void
     {
         DB::table('role_user')
             ->where('user_id', $user_id)

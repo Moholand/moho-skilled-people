@@ -9,12 +9,20 @@ class CandidateRepository
 {
     /**
      * Get all the candidates.
+     *
+     * @return LengthAwarePaginator
      */
     public function allCandidates(): LengthAwarePaginator
     {
         return Candidate::with('user')->paginate(20)->withQueryString();
     }
 
+    /**
+     * Get one candidate data by id, whether trashed or not.
+     *
+     * @param  int $id
+     * @return Candidate
+     */
     public function getCandidateWithTrashed(int $id): Candidate
     {
         return Candidate::withTrashed()->findOrFail($id);

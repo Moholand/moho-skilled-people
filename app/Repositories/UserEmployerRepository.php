@@ -11,6 +11,7 @@ class UserEmployerRepository
     /**
      * Get all the employers.
      *
+     * @param   User $user
      * @return LengthAwarePaginator
      */
     public function allUserEmployers(User $user): LengthAwarePaginator
@@ -23,7 +24,7 @@ class UserEmployerRepository
      *
      * @param   array $data
      * @param   User $user
-     * @return \App\Models\Employer|\Illuminate\Database\Eloquent\Model
+     * @return Employer|\Illuminate\Database\Eloquent\Model
      */
     public function storeUserEmployer(array $data, User $user): Employer
     {
@@ -35,7 +36,7 @@ class UserEmployerRepository
      *
      * @param  User $user
      * @param  int $id
-     * @return \App\Models\Employer|\Illuminate\Database\Eloquent\Model
+     * @return Employer|\Illuminate\Database\Eloquent\Model
      */
     public function getUserEmployer(User $user, int $id): Employer
     {
@@ -47,7 +48,7 @@ class UserEmployerRepository
      *
      * @param  User $user
      * @param  int $id
-     * @return \App\Models\Employer|\Illuminate\Database\Eloquent\Model
+     * @return Employer|\Illuminate\Database\Eloquent\Model
      */
     public function getUserEmployerWithTrashed(User $user, int $id): Employer
     {
@@ -60,7 +61,7 @@ class UserEmployerRepository
      * @param  array $data
      * @param  User $user
      * @param  int $id
-     * @return \App\Models\Employer
+     * @return Employer
      */
     public function updateUserEmployer(array $data, User $user, int $id): Employer
     {
@@ -76,7 +77,7 @@ class UserEmployerRepository
      *
      * @param  User $user
      * @param  int $id
-     * @return String
+     * @return string
      */
     public function deleteUserEmployer(User $user, int $id): string
     {

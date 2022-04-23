@@ -4,13 +4,16 @@ namespace App\Repositories;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use \Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class UserRepository
 {
     /**
      * Get all the users.
+     *
+     * @return LengthAwarePaginator
      */
-    public function allUsers()
+    public function allUsers(): LengthAwarePaginator
     {
         return User::with(['country', 'skills', 'roles'])->paginate(20)->withQueryString();
     }
@@ -21,7 +24,7 @@ class UserRepository
      * @param  array $data
      * @return User
      */
-    public function storeUser($data)
+    public function storeUser(array $data): User
     {
         return User::create([
             'english_full_name' => $data['english_full_name'],
@@ -36,9 +39,9 @@ class UserRepository
      * Get one user data by id.
      *
      * @param  int $id
-     * @return User
+     * @return User|\Illuminate\Database\Eloquent\Model
      */
-    public function getUser($id)
+    public function getUser(int $id): User
     {
         return User::with(['country', 'skills', 'roles'])->findOrFail($id);
     }
@@ -61,9 +64,9 @@ class UserRepository
      * @param  int $id
      * @return User
      */
-    public function updateUser($data, $id)
+    public function updateUser(array $data, int $id): User
     {
-        $user = User::findOrFail($id);
+        $user = $this->getUser($id);
 
         $user->update([
             'english_full_name' => $data['english_full_name'],
@@ -80,7 +83,7 @@ class UserRepository
      * Delete user from storage.
      *
      * @param  int $id
-     * @return String
+     * @return string
      */
     public function deleteUser(int $id): string
     {
@@ -88,10 +91,10 @@ class UserRepository
 
         if($user->trashed()) {
             $user->forceDelete();
-            return $result = 'User deleted successfully';
+            return 'User deleted successfully';
         } else {
             $user->delete();
-            return $result = 'User moved to trashed successfully';
+            return 'User moved to trashed successfully';
         }
     }
 
@@ -101,15 +104,17 @@ class UserRepository
      * @param  int $id
      * @return void
      */
-    public function restoreUser($id)
+    public function restoreUser(int $id): void
     {
         User::onlyTrashed()->findOrFail($id)->restore();
     }
 
     /**
      * Get all the trashed users.
+     *
+     * @return LengthAwarePaginator
      */
-    public function trashedUsers()
+    public function trashedUsers(): LengthAwarePaginator
     {
         return User::with(['country', 'skills'])->onlyTrashed()->paginate(20)->withQueryString();
     }

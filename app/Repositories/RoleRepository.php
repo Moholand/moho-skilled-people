@@ -3,13 +3,16 @@
 namespace App\Repositories;
 
 use App\Models\Role;
+use Illuminate\Database\Eloquent\Collection;
 
 class RoleRepository
 {
     /**
      * Get all the roles.
+     *
+     * @return Collection
      */
-    public function allRoles()
+    public function allRoles(): Collection
     {
         return Role::get();
     }
@@ -20,7 +23,7 @@ class RoleRepository
      * @param  array $data
      * @return Role
      */
-    public function storeRole($data)
+    public function storeRole(array $data): Role
     {
         return Role::create(['name' => $data['name']]);
     }

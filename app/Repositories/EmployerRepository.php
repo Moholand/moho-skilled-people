@@ -23,7 +23,7 @@ class EmployerRepository
      *
      * @param  array $data
      * @param  User $user
-     * @return \App\Models\Employer|\Illuminate\Database\Eloquent\Model
+     * @return Employer|\Illuminate\Database\Eloquent\Model
      */
     public function storeEmployer(array $data, User $user): Employer
     {
@@ -34,7 +34,7 @@ class EmployerRepository
      * Get the specified employer.
      *
      * @param  int  $id
-     * @return \App\Models\Employer|\Illuminate\Database\Eloquent\Model
+     * @return Employer|\Illuminate\Database\Eloquent\Model
      */
     public function getEmployer(int $id): Employer
     {
@@ -45,7 +45,7 @@ class EmployerRepository
      * Get one employer data by id, whether trashed or not.
      *
      * @param  int $id
-     * @return \App\Models\Employer
+     * @return Employer
      */
     public function getEmployerWithTrashed(int $id): Employer
     {
@@ -57,7 +57,7 @@ class EmployerRepository
      *
      * @param  array $data
      * @param  int $id
-     * @return \App\Models\Employer
+     * @return Employer
      */
     public function updateEmployer(array $data, int $id): Employer
     {
