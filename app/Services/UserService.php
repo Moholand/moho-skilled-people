@@ -42,13 +42,15 @@ class UserService
      */
     public function storeUser(array $data): User
     {
-        $role = $data['role'];
-        unset($data['role']);
+        $split = array_search('role', array_keys($data));
 
-        $user = $this->userRepository->storeUser($data);
+        $userData = array_slice($data, 0, $split);      // Data for users table
+        $roleData = array_slice($data, $split);               // Data for employers/candidates table
 
-        // Event fired -> Add role for user listener
-        UserRegistered::dispatch($user->id, $role);
+        $user = $this->userRepository->storeUser($userData);
+
+        // Event fired -> Add role for user & Create employers/candidates table row
+        UserRegistered::dispatch($user->id, $roleData);
 
         return $user;
     }

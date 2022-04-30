@@ -40,7 +40,7 @@ class AddUserToCandidates implements ShouldQueue
      */
     public function handle(UserRegistered $event)
     {
-        if($event->role === 'candidate') {
+        if($event->roleData['role'] === 'candidate') {
             // Add user to role_user table
             $this->userRoleService->storeUserRole($event->user_id, Role::CANDIDATE_ROLE_ID);
             // Add user to candidates table

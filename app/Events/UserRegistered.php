@@ -20,19 +20,19 @@ class UserRegistered
     public $user_id;
 
     /**
-     * @var string $role
+     * @var array $roleData
      */
-    public $role;
+    public $roleData;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(int $user_id, string $role)
+    public function __construct(int $user_id, array $roleData)
     {
         $this->user_id = $user_id;
-        $this->role = $role;
+        $this->roleData = $roleData;
     }
 
     /**

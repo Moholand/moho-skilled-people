@@ -27,9 +27,12 @@ class UserCreateRequest extends FormRequest
             'english_full_name' => 'required|string|min:2|max:255',
             'persian_full_name' => 'required|string|min:2|max:255',
             'email' => 'required|string|email|max:255|unique:users,email',
-            'password' => 'required',
+            'password' => 'required|confirmed',
             'country_id' => 'required|exists:countries,id',
-            'role' => 'required|string|in:candidate,employer'
+            'role' => 'required|string|in:candidate,employer',
+            'company_name' => 'required_if:role,employer|string|min:2|max:255',
+            'company_email' => 'required_if:role,employer|string|email|max:255',
+            'company_address' => 'required_if:role,employer|string|min:2'
         ];
     }
 }

@@ -27,7 +27,11 @@ class EmployerRepository
      */
     public function storeEmployer(array $data, User $user): Employer
     {
-        return $user->employers()->create($data);
+        return $user->employers()->create([
+            'company_name' => $data['company_name'],
+            'company_email' => $data['company_email'],
+            'company_address' => $data['company_address']
+        ]);
     }
 
     /**
