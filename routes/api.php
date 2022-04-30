@@ -18,12 +18,15 @@ Route::group(['prefix' => 'auth'], function () {
   Route::post('me', [AuthController::class, 'me']);
 });
 
+/** users register route */
+Route::post('users', [UserController::class, 'store'])->name('users.store');
+
 Route::group(['middleware' => 'auth:api'], function () {
 
   /** users routes */
   Route::get('users/trashed', [UserController::class, 'trashed'])->name('users.trashed');
   Route::get('users/{user}/restore', [UserController::class, 'restore'])->name('users.restore');
-  Route::apiResource('users', UserController::class);
+  Route::apiResource('users', UserController::class)->except('store');
 
   /** roles routes */
   Route::apiResource('roles', RoleController::class)->only(['index', 'store']);
